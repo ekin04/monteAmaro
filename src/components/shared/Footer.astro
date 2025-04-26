@@ -1,0 +1,146 @@
+---
+import { Image } from "astro:assets";
+import Logo from "@img/loghi/Logo-maiella-escursioni.webp";
+import LogoAbruzzo from "@img/loghi/abruzzo-turismo-dark.svg";
+import datiJson from "@content/carousel/caroselloattivita.json";
+import { Icon } from "astro-icon/components";
+---
+
+<!-- Footer -->
+<footer class="bg-stone-900 text-white py-12">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class=" flex flex-col items-center">
+        <h3 class="text-3xl font-bold mb-4">Maiella Escursioni</h3>
+        <p class="text-lg text-stone-400">La Maiella ad un passo da te</p>
+        <div
+          class="bg-white rounded-full mt-5 h-40 w-40 flex items-center justify-center"
+        >
+          <a href="https://maiellaescursioni.it/" aria-label="Website Maiella escursioni" target="_blank">
+            <Image
+              src={Logo}
+              alt="Logo Maiella escursioni"
+              class="w-full h-full object-cover"
+              width={200}
+            />
+          </a>
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+        <h3 class="text-lg font-bold mb-4">Altre escursioni</h3>
+        <div class="text-center">
+          {
+            datiJson.slide.map((item) => (
+              <a
+                href={item.link}
+                target="_blank"
+                class="block mb-1 text-stone-400 hover:text-white transition-colors"
+              >
+                {item.title.split("–")[0]}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <h4 class="text-lg font-bold mb-4">Contatti</h4>
+        <ul class="space-y-2 text-stone-400 text-center">
+          <li>
+            <a
+              href="tel:+393761594011"
+              aria-label="Telefono Maiella Escursioni"
+              class="text-stone-400 hover:text-white transition-colors"
+              ><Icon name="mdi:phone" class="inline-block mr-2" />+39 376
+              1594011</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://wa.me/+393761594011"
+              aria-label="Whatsapp Maiella Escursioni"
+              class="text-stone-400 hover:text-white transition-colors"
+              ><Icon name="mdi:whatsapp" class="inline-block mr-2" />+39 376
+              1594011</a
+            >
+          </li>
+          <li>
+            <a
+              href="mailto:info@maiellaescursioni.it"
+              aria-label="Email Maiella Escursioni"
+              class="text-stone-400 hover:text-white transition-colors"
+              ><Icon
+                name="mdi:email"
+                class="inline-block mr-2"
+              />info@maiellaescursioni.it</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center">
+        <h4 class="text-lg font-bold mb-4">Partner</h4>
+        <a
+          href="https://www.abruzzoturismo.it/"
+          target="_blank"
+          aria-label="Website Abruzzo turismo"
+          class="text-stone-400 hover:text-white transition-colors"
+        >
+          <Image
+            src={LogoAbruzzo}
+            alt="Logo Abruzzo turismo"
+            class=""
+            width={200}
+          />
+        </a>
+        <h4 class="text-lg font-bold mb-4 mt-8">Social</h4>
+        <div class="flex space-x-4">
+          <a
+            href="https://wa.me/+393761594011"
+            target="_blank"
+            aria-label="Whatsapp Maiella Escursioni"
+            class="text-stone-400 hover:text-white transition-colors"
+          >
+            <Icon name="mdi:whatsapp" class="h-8 w-8" />
+          </a>
+          <a
+            href="https://www.instagram.com/maiellaescursioni/"
+            aria-label="Instagram Maiella Escursioni"
+            class="text-stone-400 hover:text-white transition-colors"
+          >
+            <Icon name="mdi:instagram" class="h-8 w-8" />
+          </a>
+          <a
+            href="https://www.facebook.com/maiellaescursioni/"
+            aria-label="Facebook Maiella Escursioni"
+            class="text-stone-400 hover:text-white transition-colors"
+          >
+            <Icon name="mdi:facebook" class="h-8 w-8" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-t border-stone-700 mt-12 pt-8 text-center text-stone-500"
+    >
+      <p>
+        &copy; 2024 - {new Date().getFullYear()} Maiella Escursioni. Tutti i diritti
+        riservati.
+      </p>
+      <p>P.IVA 02785160694</p>
+    </div>
+  </div>
+</footer>
+<script is:inline>
+    // Seleziona tutti i bottoni con la classe contactButton
+    document.querySelectorAll(".contactButton").forEach(button => {
+      button.addEventListener("click", function () {
+        document.getElementById("authentication-modal").classList.remove("hidden");
+      });
+    });
+  
+    // Chiudi il modal
+    document.getElementById("closeModal").addEventListener("click", function () {
+      document.getElementById("authentication-modal").classList.add("hidden");
+    });
+  </script>
+  

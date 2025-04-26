@@ -1,0 +1,15 @@
+---
+import caroselloJson from "@content/carousel/caroselloattivita.json"
+import CarouselWrapper from "../home/Carousel/CarouselActivity";
+---
+<section class="py-10 md:py-20 bg-white px-3 mx-auto">
+  
+  <h3 class="text-3xl font-bold mb-4  text-center">
+    Voglia di avventura?
+  </h3>
+  <p class="md:text-lg text-stone-700 text-center mb-6 max-w-4xl mx-auto">Un’escursione è solo l’inizio. Sulla Maiella ogni cammino è un invito a scoprire la natura, la storia e la pace profonda di una montagna sacra. Percorrila tutta, senza fretta, con il passo curioso di chi sa che c’è sempre qualcosa di nuovo dietro ogni passo, e noi di Maiella escurioni saremo li ad accompagnarvi.</p>
+  <hr class="my-8 border-gray-300 w-1/3 mx-auto border-1" />
+  <div class=" max-w-screen-2xl p-5">
+    <CarouselWrapper cards={caroselloJson} client:idle />
+  </div>
+</section>

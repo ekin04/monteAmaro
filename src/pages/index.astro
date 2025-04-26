@@ -1,0 +1,455 @@
+---
+import { Image, getImage } from "astro:assets";
+import HeroFixed from "@components/home/HeroFixed.astro";
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+export const prerender = true;
+
+import Maps from "@img/cms/home/monteAmaroMaps.png";
+import Gruppo from "@img/cms/home/gruppoVertical.jpg";
+import mAmaro from "@img/cms/home/mAmaro.jpg";
+import alba from "@img/cms/home/alba2.jpg";
+const bgAlba = await getImage({ src: alba, width: 1200, quality: 50 });
+import Carousel from "@components/shared/Carousel.astro";
+import ContactButton from "@components/shared/ContactButton.astro";
+import datiJson from "@content/pages/home.json";
+---
+
+<Layout titolo={datiJson.seoTitle} descrizione={datiJson.seoDescription}>
+  <HeroFixed />
+
+  <!-- Section 1: Cosa sono le Gole di San Martino -->
+  <section
+    id="cosa-sono"
+    class="py-10 md:py-20 bg-white relative -top-4 rounded-t-2xl"
+  >
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col-reverse md:flex-row items-center">
+        <div class="md:w-1/2">
+          <Image
+            src={mAmaro}
+            alt="Panoramica delle Gole di San Martino"
+            class="rounded-lg aspect-square object-left shadow-xl w-full h-auto object-cover"
+            width={900}
+            height={900}
+          />
+        </div>
+        <div class="md:w-1/2 md:pl-12 mb-10 md:mb-0">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:mountain" class="w-8 h-8 text-emerald-600 mr-3" />
+            <h2 class="text-xl md:text-3xl font-bold">Cosa è Monte Amaro</h2>
+          </div>
+
+          <p class="md:text-lg text-stone-700 mb-6 text-pretty">
+            Monte Amaro è la cima più alta del PNM (Parco Nazionale della
+            Maiella), con i suoi 2793 metri sul livello del mare è la seconda
+            vetta per elevazione di tutta la catena degli Appennini. Le uniche
+            montagne del Centro-Sud Italia che precedono per altitudine il Monte
+            Amaro sono il “Gran Sasso” e l’ “Etna“; il primo con una differenza
+            di soli 100 metri, con i suoi 2912 mt s.l.m. e l’Etna (Il più alto
+            vulcano attivo della placca euroasiatica) con i suoi 3357 metri.
+          </p>
+          <p class="md:text-lg text-stone-700 mb-10 text-pretty">
+            Tutti gli amanti del trekking sognano di raggiungere quest’ambita
+            meta almeno una volta nella vita, ampie distanze e dislivelli da
+            record rendono l’ascesa una vera sfida. Questa stupenda attività è
+            ricca di spettacolari bellezze paesaggistiche, ma nasconde molte
+            insidie, per questo è consigliata esclusivamente ad un pubblico di
+            escursionisti esperti.
+          </p>
+          <ContactButton testo="PRENOTA LA TUA ESCURSIONE" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Dove si trovano -->
+  <section class="py-10 md:py-20 bg-stone-100">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col-reverse md:flex-row-reverse items-center">
+        <div class="md:w-1/2 flex justify-center items-center">
+          <div class="relative h-96 rounded-lg overflow-hidden shadow-xl">
+            <Image
+              src={Maps}
+              alt="Mappa delle Gole di San Martino"
+              class="w-full h-full object-cover"
+              height={1000}
+            />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <a
+                href="https://www.google.it/maps/place/Monte+Amaro/@42.0871861,14.082196,3109m/data=!3m1!1e3!4m6!3m5!1s0x133043a6c54550e3:0xb48866617e9360d8!8m2!3d42.0863263!4d14.0859738!16s%2Fm%2F05q8t1k?entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D"
+                target="_blank"
+                aria-label="Mappa delle Gole di San Martino"
+                rel="noopener noreferrer"
+                class="bg-white/80 mt-20 p-4 rounded-lg shadow-lg max-w-xs"
+              >
+                <div class="flex justify-center mb-3">
+                  <div class="relative">
+                    <div
+                      class="w-4 h-4 bg-green-500 rounded-full animate-ping absolute"
+                    >
+                    </div>
+                    <div class="w-4 h-4 bg-green-500 rounded-full relative">
+                    </div>
+                  </div>
+                </div>
+                <p class="text-center font-medium">Monte Amaro</p>
+                <p class="text-center text-sm text-stone-600">
+                  Parco Nazionale della Maiella
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pr-12">
+          <div class="flex items-center mb-4">
+            <Icon name="lucide:map-pin" class="w-8 h-8 text-emerald-600 mr-3" />
+            <h2 class="text-xl md:text-3xl font-bold">Dove si trovano</h2>
+          </div>
+          <p class="md:text-lg text-stone-700 mb-6">
+            In Abruzzo, nel cuore del Parco Nazionale della Maiella. La vetta è
+            raggiungibile da diversi versanti, con i principali accessi dai
+            comuni di Fara San Martino, Palena, Pennapiedimonte e Pretoro. La
+            sua posizione privilegiata permette di ammirare gran parte
+            dell'Appennino centrale, il Mar Adriatico e, nelle giornate più
+            limpide, persino il Mare Tirreno.
+          </p>
+          <div class="grid grid-cols-2 gap-4 mb-8 md:mb-0">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="font-bold text-emerald-700">Regione</p>
+              <p>Abruzzo</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="font-bold text-emerald-700">Comuni di accesso</p>
+              <p>Fara San Martino, Palena, Pennapiedimonte, Pretoro</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="font-bold text-emerald-700">Parco</p>
+              <p>Parco Nazionale della Maiella</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <p class="font-bold text-emerald-700">Altitudine</p>
+              <p>2793 m.s.l.m.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Cosa Faremo -->
+  <section class="py-10 md:py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="flex items-center justify-center mb-4">
+          <Icon name="lucide:route" class="w-8 h-8 text-emerald-600 mr-3" />
+          <h2 class="text-xl md:text-3xl font-bold">Cosa Faremo</h2>
+        </div>
+        <p class="md:text-lg text-stone-700 max-w-3xl mx-auto">
+          L'escursione al Monte Amaro è un'avventura indimenticabile che si
+          sviluppa in diverse tappe:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          class="bg-stone-50 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <span class="text-2xl font-bold text-emerald-600">1</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-center">Partenza</h3>
+          <p class="text-stone-700">
+            Partenza da <b>Fonte di Nunzio</b> nel territorio di Pacentro, con il percorso
+            iniziale nel Bosco di Valle Cupa e Cesone, arrivo a Fonte dell'Orso
+            (prima sosta)
+          </p>
+        </div>
+
+        <div
+          class="bg-stone-50 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <span class="text-2xl font-bold text-emerald-600">2</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-center">
+            Verso l'alto
+          </h3>
+          <p class="text-stone-700">
+            Usciti all’esterno della coltre boschiva ci troviamo al cospetto dell’imponente canale di <b>Fondo Maiella</b>.
+            Affrontiamo una ripida salita all’interno del ghiaione di Fondo Maiella, raggiungendo la località denominata <b></b>Forchetta Maiella</b>(2390 m)
+          </p>
+        </div>
+
+        <div
+          class="bg-stone-50 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <span class="text-2xl font-bold text-emerald-600">3</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-center">
+            L'ambiente d'alta quota
+          </h3>
+          <p class="text-stone-700">
+           Si parte in direzione del <b>Fondo di Femmina Morta</b> (Vasta distesa semi-desertica che prende il nome dal suo paesaggio impervio e che richiama la paura e la morte). Si arriva a <b>Grotta Canosa</b> (2500 m)
+          </p>
+        </div>
+
+        <div
+          class="bg-stone-50 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <span class="text-2xl font-bold text-emerald-600">4</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-center">
+            La vetta
+          </h3>
+          <p class="text-stone-700">
+            Dopo circa un’ora affronteremo l’ultima salita che ci porterà sulla vetta del Monte Amaro (2793)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: A chi è rivolto -->
+  <section class="py-10 md:py-20 bg-emerald-50">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col-reverse md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <Image
+            src={Gruppo}
+            alt="Famiglie in escursione alle Gole di San Martino"
+            class="mt-10 md:mt-0 rounded-lg aspect-square object-center shadow-xl w-full h-auto object-cover"
+            width={900}
+            height={900}
+          />
+        </div>
+        <div class="md:w-1/2 md:pl-12">
+          <div class="flex items-center mb-4">
+            <Icon name="lucide:users" class="w-8 h-8 text-emerald-600 mr-3" />
+            <h2 class="text-xl md:text-3xl font-bold">A chi è rivolto</h2>
+          </div>
+          <p class="md:text-lg text-stone-700 mb-6">
+            L'escursione è dedicata a escursionisti esperti con buona
+            preparazione fisica. Il percorso richiede esperienza in montagna e
+            un'adeguata attrezzatura. Non è consigliato ai principianti o a chi
+            non ha esperienza di trekking in alta quota.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-emerald-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">Durata</p>
+                <p class="text-sm">10/12 ore</p>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-emerald-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">Dislivello</p>
+                <p class="text-sm">1550 metri</p>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-emerald-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">Distanza</p>
+                <p class="text-sm">25 km</p>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-emerald-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold">Difficoltà</p>
+                <p class="text-sm">Difficile</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-10">
+            <ContactButton testo="PRENOTA LA TUA ESCURSIONE" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Oltre l'escursione -->
+  <section
+    class="py-30 bg-fixed bg-center bg-cover overflow-y-scroll bg-no-repeat .custom-shape-divider-top-1745455074"
+    style={`background-image: url(${bgAlba.src});`}
+  >
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0"></div>
+        <div
+          class="md:w-1/2 md:pr-12 bg-white/80 backdrop-blur rounded-4xl shadow-lg p-8 bg"
+        >
+          <div class="flex items-center mb-4">
+            <Icon
+              name="lucide:tent-tree"
+              class="w-8 h-8 text-emerald-400 mr-3"
+            />
+            <h2 class="text-3xl font-bold">Oltre l'escursione</h2>
+          </div>
+          <p class="md:text-lg mb-8 text-stone-700">
+            Data la durata significativa dell'attività (10-12 ore) e l'impegno
+            fisico richiesto, è consigliabile pernottare in zona. Sono
+            disponibili strutture convenzionate per gli escursionisti.<br />
+            Servizi Inclusi:
+            <ol class="list-disc list-inside md:text-lg mb-8 text-stone-700">
+              <li>Guida escursionistica qualificata</li>
+              <li>Bastoncini da trekking (su richiesta)</li>
+              <li>Assistenza durante tutto il percorso</li>
+            </ol>
+          </p>
+          <ContactButton testo="PRENOTA LA TUA ESCURSIONE" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Carousel />
+
+  <style>
+    /* Custom animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-title {
+      animation: fadeIn 1s ease-out 0.2s both;
+    }
+
+    .animate-subtitle {
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+
+    .animate-button {
+      animation: fadeIn 1s ease-out 1s both;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom font settings */
+    body {
+      font-family: "Montserrat", sans-serif;
+    }
+  </style>
+
+  <script>
+    // Intersection Observer for scroll animations
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("opacity-100", "translate-y-0");
+              entry.target.classList.remove("opacity-0", "translate-y-10");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      sections.forEach((section) => {
+        section.classList.add(
+          "transition-all",
+          "duration-1000",
+          "opacity-0",
+          "translate-y-10"
+        );
+        observer.observe(section);
+      });
+    });
+  </script>
+</Layout>

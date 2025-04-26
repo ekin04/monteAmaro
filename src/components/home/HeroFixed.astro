@@ -1,0 +1,417 @@
+---
+export const prerender = true;
+import datiJSON from "@content/pages/home.json";
+import { getImage } from "astro:assets";
+import ContactButton from "@components/shared/ContactButton.astro";
+
+const immagini = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/img/cms/home/**/*.{jpeg,jpg,png,gif,webp}"
+);
+
+// Crea un array di immagini ottimizzate
+const sfondiOttimizzati = await Promise.all(
+  datiJSON.slide.map(async (percorso) => {
+    if (!immagini[percorso.image]) {
+      throw new Error(
+        `"${percorso.image}" non esiste nel glob: "/src/assets/*.{jpeg,jpg,png,gif}"`
+      );
+    }
+
+    return await getImage({
+      src: immagini[percorso.image](),
+      width: 1200,
+      quality: 50,
+    });
+  })
+);
+---
+
+<section class="hero-container bg-black">
+  <!-- Slideshow di immagini -->
+  <div class="slideshow-container" id="slideshow">
+    {
+      sfondiOttimizzati.map((immagine, index) => (
+        <div
+          class={`slide ${index === 0 ? "active" : ""}`}
+          style={`background-image: url('${immagine.src}')`}
+        />
+      ))
+    }
+  </div>
+
+  <div class="overlay-gradient"></div>
+
+  <div class="content-wrapper" id="parallax-content">
+    <div class="hero-content mb-[10vh] md:mb-[2vh]">
+      
+
+      <h1 class="title">
+        {
+          datiJSON.title
+            .split(" ")
+            .map((parola) => <span class="title-word">{parola} </span>)
+        }
+      </h1>
+      <h2 class="pre-title text-sm">{datiJSON.pretitle}</h2>
+      <!-- <div class="location-badge">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <span>Parco Nazionale della Maiella, Abruzzo</span>
+      </div> -->
+
+      <p class="description md:text-xl p-2">
+        {datiJSON.description}
+      </p>
+
+      <div class="cta-group">
+        <ContactButton testo="PRENOTA LA TUA ESCURSIONE" />
+      </div>
+    </div>
+
+    <a
+      href="#cosa-sono"
+      class="scroll-down absolute bottom-1 left-2/4 transform -translate-x-1/2 md:bottom-10"
+      aria-label="Scroll down"
+    >
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <div class="arrows">
+        <span class="arrow-down"></span>
+        <span class="arrow-down"></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Gestione slideshow
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    function showSlide(index: number) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) {
+          slide.classList.add("active");
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    // Cambia slide ogni 5 secondi
+    setInterval(nextSlide, 5000);
+
+    // Effetto parallax sullo scroll
+    const parallaxContent = document.getElementById("parallax-content");
+
+    window.addEventListener("scroll", () => {
+      const scrollPosition = window.scrollY;
+      if (parallaxContent) {
+        // Effetto parallax sul contenuto (si muove più lentamente dello scroll)
+        parallaxContent.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+      }
+    });
+  });
+</script>
+
+<style>
+  .hero-container {
+    position: relative;
+    height: 102dvh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Stile per lo slideshow */
+  .slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .overlay-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 40%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 10%;
+    will-change: transform;
+  }
+
+  .hero-content {
+    max-width: 650px;
+    color: white;
+    /* opacity: 0.1; */
+    /* animation: fadeIn 0.4s ease forwards 0.5s; */
+  }
+
+  .pre-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    display: inline-block;
+  }
+
+  .pre-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background-color: #3a5a40; /* Verde foresta */
+  }
+
+  .title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .title-word {
+    margin-right: 1rem;
+    animation: slideInFromBottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      forwards;
+    opacity: 0.01;
+    transform: translateY(50px);
+  }
+
+  .title-word:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  .title-word:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  .title-word:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  .title-word:nth-child(4) {
+    animation-delay: 0.8s;
+  }
+
+  .location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .description {
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .secondary-button {
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .secondary-button:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .scroll-down {
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    margin-bottom: 5vh;
+    animation: fadeIn 1s ease forwards 1.5s;
+  }
+
+  .mouse {
+    width: 30px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 20px;
+    position: relative;
+  }
+
+  .wheel {
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: mouseWheel 1.5s infinite;
+  }
+
+  .arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .arrow-down {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(45deg);
+    margin: -5px;
+    animation: arrowDown 1.5s infinite;
+  }
+
+  .arrow-down:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0.001;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes mouseWheel {
+    0% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+  }
+
+  @keyframes arrowDown {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-5px, -5px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .slide {
+      background-attachment: scroll; /* or remove it */
+      background-position: center bottom;
+    }
+    .content-wrapper {
+      padding: 0 5%;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 3rem;
+      justify-content: center;
+    }
+
+    .pre-title::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .cta-group {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

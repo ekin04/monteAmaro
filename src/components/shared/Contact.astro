@@ -1,0 +1,156 @@
+<div
+  id="authentication-modal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-dvh max-h-full bg-slate-900/50 backdrop-blur-lg"
+>
+  <div class="relative p-4 w-full max-w-md h-full mx-auto flex items-center justify-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow ">
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
+      >
+        <h3 class="text-xl font-semibold text-gray-900">
+          Sei pronto per <br/>Monte Amaro?
+        </h3>
+        <button
+          type="button"
+          class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+          data-modal-hide="authentication-modal"
+          id="closeModal"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5">
+        <form class="space-y-4" id="contactForm">
+          <div>
+            <label
+              for="nome"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Nome e cognome</label
+            >
+            <input
+              type="text"
+              name="nome"
+              id="nome"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="Mario Rossi"
+              required
+            />
+          </div>
+          
+          <div>
+            <label
+              for="data"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Seleziona la data</label
+            >
+            <input
+              type="date"
+              name="data"
+              id="data"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="gg-mm-aaaa"
+              required
+            />
+            <script is:inline>
+              const today = new Date().toISOString().split("T")[0];
+              const dateInput = document.getElementById("data");
+              dateInput.setAttribute("min", today);
+              dateInput.value = today;
+            </script>
+          </div>
+
+          <div>
+            <label
+              for="messaggio"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Messaggio</label
+            >
+            <textarea
+              name="messaggio"
+              id="messaggio"
+              rows="4"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="Inserisci qui il tuo messaggio"
+              required></textarea>
+          </div>
+
+          <div class="flex justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input
+                  id="newletter"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                />
+              </div>
+              <label
+                for="remember"
+                class="ms-2 text-sm font-medium text-gray-900"
+                >Voglio rimanere aggiornato sulle nuove escursioni</label
+              >
+            </div>
+            
+
+            
+          </div>
+          <div class="ms-2 text-sm font-medium text-gray-900 text-pretty">
+            <p><i>Cliccando su invia messaggio verrai reindirizzato sulla pagina whatsapp dove vedrai tutti i dettagli inseriti e  potrai confermare l'invio.</i></p>
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-5 py-2.5 text-center"
+            >Invia messaggio</button
+          >
+        </form>
+        <script is:inline>
+          document
+            .getElementById("contactForm")
+            .addEventListener("submit", function (event) {
+              event.preventDefault(); // Previene il comportamento di submit predefinito
+
+              const nome = document.getElementById("nome").value;
+              const data = document.getElementById("data").value;
+              const [yyyy, mm, dd] = data.split("-");
+              const formattedDate = `${dd}-${mm}-${yyyy}`;
+
+              const messaggio = document.getElementById("messaggio").value;
+              const newsletter = document.getElementById("newletter").checked
+                ? "%0A%0ANewsletter%3A%20Aggiungimi%20al%20gruppo%20whatsapp"
+                : "";
+
+              const link =
+                "https://wa.me/393761594011/?text=Nome%3A%20" +
+                encodeURIComponent(nome) +
+                "%0AData%20Escursione%3A%20" +
+                encodeURIComponent(formattedDate) +
+                "%0AMessaggio%3A%20" +
+                encodeURIComponent(messaggio) +
+                newsletter;
+
+              window.open(link, "_blank"); // Apre il link in una nuova scheda
+            });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

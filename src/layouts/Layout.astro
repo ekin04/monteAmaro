@@ -1,0 +1,92 @@
+---
+import Contact from "@components/shared/Contact.astro";
+import "../styles/global.css";
+import Footer from "@components/shared/Footer.astro";
+import { SEO } from "astro-seo";
+import { siteConfig } from "../../siteConfig";
+const { descrizione, immagine, index, titolo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <SEO
+      title={titolo}
+      titleTemplate={"%s | " + siteConfig.site.defaultTitle}
+      description={descrizione.slice(0, 160)}
+      charset="UTF-8"
+      nofollow={index === false}
+      ,
+      noindex={index === false}
+      canonical={Astro.url.href.slice(0, -1)}
+      openGraph={{
+        basic: {
+          title: titolo,
+          type: "website",
+          image: immagine ? immagine : Astro.url.origin + "/og_banner.jpg",
+		  url: Astro.url.href.slice(0, -1),
+        },
+        optional: {
+          description: descrizione.slice(0, 160),
+          locale: "it_IT",
+        },
+      }}
+      ,
+      twitter={{
+        card: "summary_large_image",
+        site: Astro.url.origin,
+        title: titolo,
+        image: immagine ? immagine : Astro.url.origin + "/og_banner.jpg",
+        description: descrizione.slice(0, 160),
+      }}
+      extend={{
+        link: [
+          { rel: "sitemap", href: Astro.url.origin + "/sitemap-index.xml" },
+          {
+            rel: "icon",
+            type: "image/x-icon",
+            href: "/favicon/favicon-48x48.png",
+            sizes: "48x48",
+          },
+          { rel: "icon", type: "image/svg+xml", href: "/favicon/favicon.svg" },
+          { rel: "icon", type: "image/svg+xml", href: "/favicon/favicon.svg" },
+          { rel: "shortcut icon", href: "/favicon/favicon.ico" },
+          {
+            rel: "apple-touch-icon",
+            sizes: "180x180",
+            href: "/favicon/apple-touch-icon.png",
+          },
+          { rel: "manifest", href: "/favicon/site.webmanifest" },
+        ],
+        meta: [
+          {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1.0",
+          },
+          { name: "theme-color", content: "#0E9F6E" },
+          {
+            name: "apple-mobile-web-app-title",
+            content: siteConfig.site.defaultTitle,
+          },
+        ],
+      }}
+    />
+  </head>
+  <body>
+    <slot />
+    <Contact />
+    <Footer />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 1200px;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

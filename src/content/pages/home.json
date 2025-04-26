@@ -1,0 +1,25 @@
+{
+  "seoTitle": "La vetta più alta della Maiella",
+  "seoDescription": "Scopri Monte Amaro con escursioni guidate nel cuore della Maiella: panorami mozzafiato, natura selvaggia e avventure indimenticabili.",
+  "slide": [
+    {
+      "title": "Monte amaro rifugio",
+      "image": "/src/assets/img/cms/home/slide/0/image.jpg"
+    },
+    {
+      "title": "Monte amaro alba",
+      "image": "/src/assets/img/cms/home/slide/1/image.jpg"
+    },
+    {
+      "title": "Monte amaro",
+      "image": "/src/assets/img/cms/home/slide/2/image.jpg"
+    },
+    {
+      "title": "Monte amaro trekking",
+      "image": "/src/assets/img/cms/home/slide/3/image.jpg"
+    }
+  ],
+  "pretitle": "La vetta più alta della Maiella",
+  "title": "Monte Amaro",
+  "description": "Scopri l'emozione di raggiungere i 2.793 metri della cima più alta della Maiella, tra panorami infiniti e natura incontaminata."
+}
