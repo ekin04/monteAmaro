@@ -4,6 +4,7 @@ export const siteConfig = {
     defaultTitle: "Monte Amaro",
     favicon:
       "https://www.maiellaescursioni.it/wp-content/uploads/2023/10/favicon-png-maiella-escursioni.png",
+    primaryColor: "#e60000", /* change global css too */
   },
   commit: {
     name: "Maiella Escursioni",
