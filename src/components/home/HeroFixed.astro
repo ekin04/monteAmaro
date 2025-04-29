@@ -52,7 +52,7 @@ const sfondiOttimizzati = await Promise.all(
             .map((parola) => <span class="title-word">{parola} </span>)
         }
       </h1>
-      <h2 class="pre-title text-sm">{datiJSON.pretitle}</h2>
+      <h2 class="pre-title text-sm after:bg-secondary">{datiJSON.pretitle}</h2>
       <!-- <div class="location-badge">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +216,6 @@ const sfondiOttimizzati = await Promise.all(
     left: 0;
     width: 60px;
     height: 2px;
-    background-color: #3a5a40; /* Verde foresta */
   }
 
   .title {

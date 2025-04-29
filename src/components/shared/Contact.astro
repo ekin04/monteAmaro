@@ -1,3 +1,6 @@
+---
+import {siteConfig} from "../../../siteConfig";
+---
 <div
   id="authentication-modal"
   tabindex="-1"
@@ -12,7 +15,7 @@
         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
       >
         <h3 class="text-xl font-semibold text-gray-900">
-          Sei pronto per <br/>Monte Amaro?
+          Sei pronto per <br/><span id="siteName">{siteConfig.site.defaultTitle}</span>
         </h3>
         <button
           type="button"
@@ -132,6 +135,8 @@
               const data = document.getElementById("data").value;
               const [yyyy, mm, dd] = data.split("-");
               const formattedDate = `${dd}-${mm}-${yyyy}`;
+              const siteName = document.getElementById("siteName").textContent;
+             
 
               const messaggio = document.getElementById("messaggio").value;
               const newsletter = document.getElementById("newletter").checked
@@ -141,6 +146,8 @@
               const link =
                 "https://wa.me/393761594011/?text=Nome%3A%20" +
                 encodeURIComponent(nome) +
+                "%0AEscursione%3A%20" +
+                encodeURIComponent(siteName)+ 
                 "%0AData%20Escursione%3A%20" +
                 encodeURIComponent(formattedDate) +
                 "%0AMessaggio%3A%20" +
@@ -148,6 +155,7 @@
                 newsletter;
 
               window.open(link, "_blank"); // Apre il link in una nuova scheda
+              console.log(link)
             });
         </script>
       </div>
